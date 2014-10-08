@@ -1,0 +1,133 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\author{Magdalena Klausner}
+\usepackage[T1]{fontenc}
+\newcommand{\changefont}[3]{
+\fontfamily{#1}
+\fontseries{#2}
+\fontshape{#3}
+\selectfont}
+\changefont{cmss}{m}{n}
+
+\begin{document}
+
+\changefont{cmss}{m}{n}
+
+\title{ Pflichtenheft}
+\author{Auer Magdalena, Klausner Magdalena, Kostenzer Thomas }
+\date{24.9.2014}
+\maketitle
+
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{ Zielbestimmung}
+\subsection{ Musskriterien:}
+
+\begin{itemize}
+\item Der Roboter kann geradeaus fahren 
+\item Der Roboter kann das Ende des Feldes erkennen und dort stehen bleiben
+\item Der Roboter kann Rechts- und Linkskurven fahren
+\end{itemize}
+
+
+\subsection{Wunschkriterien:}
+\begin{itemize}
+\item Der Roboter kann durch Abfahren des Feldes seine Fläche berechnen 
+\item Der Roboter kann durch Referenzpunkte gerade fahren
+\item Der Roboter kann Hindernisse erkennen und darauf reagieren  --\textgreater stehen bleiben oder ausweichen
+\end{itemize}
+
+
+\section{ Produkteinsatz}
+
+\subsection{Anwendungsbereiche:}
+
+Anwendungsbereich ist ein Feld welches automatisch bearbeitet werden soll (Zurzeit wird nur ein kleiner Prototyp hergestellt)
+
+
+\subsection{ Zielgruppen:}
+
+Agrarwirtschaftliche Betriebe, die ihre Felder automatisch bearbeiten lassen möchten.
+
+
+\subsection{ Betreibsbedingungen:}
+\begin{itemize}
+\item Betriebsdauer: mindestens ein Feld komplett bearbeiten
+\item Jederzeit betriebsbereit
+\item Wartungsfrei 
+\end{itemize}
+
+
+
+\section{ Produkumgebung}
+\subsection{Software:}
+\begin{itemize}
+\item Programmierumgebung: Arduino IDE (Version 1.0.3)
+\item Programmiersprache: C++
+\end{itemize}
+	
+\subsection{Hardware:}
+\begin{itemize}
+\item Mikrocontroller Arduino(Seeeduino)
+\item 2 Servo-Motoren + Treiber
+\item 3 Räder 
+\item Sensor
+\item Kabel
+\item Batterie
+\end{itemize}
+
+\subsection{Orgware:}
+\begin{itemize}
+\item Blatt Papier
+\item 2 verschiedene Farben (Schwarz und Weiß)
+\end{itemize}
+
+
+
+\section{ Produktfunktionen}
+
+Der Robor soll als Erleichterung für Landwirte dienen. Sie müssen beispielsweise beim Pflügen den Traktor nicht mehr selbst bedienen, denn die Maschine kann die Arbeit automatisch verichten.
+Wir arbeiten jedoch nur an einem Prototyp, der auf einem Blatt Papier (simuliertes Feld) eine markierte Fläche abfährt. 
+Dabei soll er durch den Lichtsensor den Farbunterschied erkennen und entsprechend handeln.
+Eventuell erfolgt eine Erweiterung, bei der beim Abfahren des Feldes die Fläche ausgemesssen wird, oder auch Hindernisse erkannt werden.
+Eine weiterer Zusatz könnte sein, dass durch einen Referenzpunkt am Rand des Feldes der Roboter seine Spur halten kann.
+
+\section{ Qualitätsbestimmung}
+
+\begin{tabular}{l||c|c|c|c}
+
+ &sehr wichtig & wichtig& weniger wichtig& unwichtig\\
+ \hline
+ \hline
+ Hardware&&& X & \\
+ \hline
+ Programmkorrektheit& X &  & &\\
+ \hline
+ Zuverlässigkeit& X &  &  & \\
+ \hline
+ Benutzerfreundlichkeit& & &X &\\
+ \hline
+ Design&&&&X\\
+ \hline
+ Messgenauigkeit&&X&&\\
+ 
+\end{tabular}
+
+
+
+
+
+
+
+\end{document}
