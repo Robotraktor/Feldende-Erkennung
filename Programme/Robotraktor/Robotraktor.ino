@@ -5,13 +5,9 @@
 #define trig 8
 #define echo 7
 
-int l;
-int r;
-int v;
-
 #include <Servo.h>
 
-volatile boolean kurve = true; 
+boolean kurve = true; 
 volatile boolean feldende = false;
 
 Servo rechts;
@@ -29,87 +25,40 @@ void setup()
 }
 
 void loop()
-{  
-  /*if(entfernungMessen() <= 10)
+{ 
+  //if(analogRead(A4) >= 400)
+  //{
+    //fahren();
+  //} 
+  /*else if(analogRead(A4) <= 400 && (analogRead(A2) <= 400))
   {
-    stoppen();
+    rechtsKurveFahren();
+    delay(2000);
+  }
+  else if(analogRead(A4) <= 400 && (analogRead(A0) <= 400))
+  {
+    linksKurveFahren();
     delay(2000);
   }*/
+  fahren();
   
-  
-  /*if(feldende)
+  Serial.println(entfernungMessen());
+   if(entfernungMessen() < 10)
   {
     stoppen();
-    delay(500);
-    kurveFahren(kurve);
-    delay(2000);
-    feldende = false;
+    //delay(1000);    
+  }else
+  {
+    fahren();
   }
-  */
-  
-  //fahren();
- /*
-  Serial.print(entfernungMessen());
-  Serial.print("\t");
-  if(entfernungMessen() <= 10)
+  delay(2000);
+ /* else
   {
     stoppen();
-  }else{
-  fahren();}
+    delay(5000);
+  }
  */
-   
 
-   if(analogRead(A4) >= 400)
-  {
-    fahren();
-  } 
-  else if(analogRead(A4) <= 400 && (analogRead(A2) <= 400 || kurve))
-  {
-    rechtsKurveFahren();
-    delay(2000);
-  }
-  else if(analogRead(A4) <= 400 && (analogRead(A0) <= 400 || !kurve))
-  {
-    linksKurveFahren();
-    delay(2000);
-  }
-  else
-  {
-    stoppen();
-    delay(5000);
-  }
-  
-   
-   /*
-   if (analogRead(A4) <= 400) //Sensor vorne
-  {
-    stoppen();
-    delay(5000);
-  }   
-  else if (analogRead(A0) <= 400) //Rechts
-  {
-    linksKurveFahren();
-    delay(1000);
-    fahren();
-  }
-    
- else if (analogRead(A2) <= 400) //Links
-  {
-    rechtsKurveFahren();
-    delay(2000);
-  } 
-  else {
-    fahren();
-  }
-  
-  */
-
-  
-
-
-  
-  
-  
 }
 
 void fahren()
@@ -119,26 +68,10 @@ void fahren()
   
 }
 
-
 void stoppen()
 {
   rechts.write(89);
   links.write(99);
-}
-
-void kurveFahren(boolean isKurve)
-{
-    if(isKurve /*|| analogRead(sensorRechts) == 0*/)
-    {
-      linksKurveFahren();
-    }else if(!isKurve /*|| analogRead(sensorLinks) == 0*/)
-    {
-      rechtsKurveFahren();
-    }else
-    {
-      Serial.println("FEHLER");
-      stoppen();
-    }
 }
 
 //Umdrehungen im Verhältnis
@@ -178,20 +111,5 @@ double entfernungMessen()
   
   return duration/29/2;
   
-}
-
-
-int SensorErkennungLinks()
-{
-  l = analogRead(A2);
-}
-
-int SensorErkennungRechts()
-{
-   r = analogRead(A0);
-}
-int SensorErkennungVorne()
-{
-   v = analogRead(A4);
 }
 
