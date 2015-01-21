@@ -7,7 +7,8 @@
 
 #include <Servo.h>
 
-boolean kurve = true; 
+boolean kurveRechts = true;
+boolean kurveLinks = false;
 volatile boolean feldende = false;
 
 Servo rechts;
@@ -26,39 +27,51 @@ void setup()
 
 void loop()
 { 
-  //if(analogRead(A4) >= 400)
-  //{
-    //fahren();
-  //} 
-  /*else if(analogRead(A4) <= 400 && (analogRead(A2) <= 400))
+  if(entfernungMessen() < 20)
   {
+    stoppen();
+    delay(1000);    
+  }
+  delay(100);
+  
+  if(analogRead(A4) >= 400)
+  {
+    fahren();
+  }
+  else if(analogRead(A4) <= 400 && (analogRead(A2) <= 400))
+  {
+    stoppen();
+    delay(500);
     rechtsKurveFahren();
     delay(2000);
   }
   else if(analogRead(A4) <= 400 && (analogRead(A0) <= 400))
   {
+    stoppen();
+    delay(500);
     linksKurveFahren();
     delay(2000);
-  }*/
-  fahren();
-  
-  Serial.println(entfernungMessen());
-   if(entfernungMessen() < 10)
+  }
+  else if(analogRead(A4) <= 400 && kurveRechts)
   {
     stoppen();
-    //delay(1000);    
-  }else
-  {
-    fahren();
+    delay(500);
+    rechtsKurveFahren();
+    delay(2000);
   }
-  delay(2000);
- /* else
+  else if(analogRead(A4) <= 400 && kurveLinks)
+  {
+    stoppen();
+    delay(500);
+    linksKurveFahren();
+    delay(2000);
+  }
+  else
   {
     stoppen();
     delay(5000);
   }
- */
-
+  
 }
 
 void fahren()
@@ -81,7 +94,8 @@ void linksKurveFahren()
     rechts.write(0);
     links.write(99);
     
-    kurve = true;
+    kurveLinks = !kurveLinks;
+    kurveRechts = !kurveRechts;
 }
 
 void rechtsKurveFahren()
@@ -89,7 +103,8 @@ void rechtsKurveFahren()
     rechts.write(89);
     links.write(180); 
     
-    kurve = false;
+    kurveRechts = !kurveRechts;
+    kurveLinks = !kurveLinks;
 }
 
 void ISRendeErkennen()
