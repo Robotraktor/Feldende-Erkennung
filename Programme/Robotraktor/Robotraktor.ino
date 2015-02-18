@@ -58,6 +58,7 @@ void loop()
     delay(500);
     rechtsKurveFahren();
     delay(2000);
+    
   }
   else if(analogRead(A4) <= 400 && kurveLinks)
   {
