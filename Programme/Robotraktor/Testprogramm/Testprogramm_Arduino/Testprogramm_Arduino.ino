@@ -72,12 +72,10 @@ void fahren()
 
 void stoppen()
 {
-  rechts.write(89);
-  links.write(99);
+  rechts.write(89); //Durch Probieren kamen wir auf diese Werte
+  links.write(99);  //Angegeben sind eigentlich für Stillstand 90
 }
 
-//Umdrehungen im Verhältnis
-//  r : (r+x) ... r=Innenradius; x=Abstand von Innnen- zu Außenradius
 void linksKurveFahren()
 {
     rechts.write(0);
@@ -90,38 +88,44 @@ void rechtsKurveFahren()
     links.write(180); 
 }
 
+//Interrupt-Routine
 void ISRendeErkennen()
 {
-  feldende = true;
+  feldende = true; //Erkennung des Feldendes
   if(anfang)
   {
-    if (analogRead(A2) == LOW)
+    //Wenn der Sensor links ein Signal bekommt, soll der Roboter eine Rechtskurve fahren
+    // weil durch den Interrupt vorne das Feldende schon gegeben ist
+    if (analogRead(A2) == LOW) //A2 entspricht Sensor links
     {
       kurveLinks = false;
       kurveRechts = true;
     }
-    else if(analogRead(A0) == LOW)
+    //Gleich wie oben, nur mit rechtem Sensor und Linkskurve
+    else if(analogRead(A0) == LOW) //A0 entspricht Sensor rechts
     {
       kurveRechts = false;
       kurveLinks = true;
     }
+    //Wenn Sensor rechts und links ein Signal bekommen, dann soll er stehen bleiben
     else if(analogRead(A2) == LOW && analogRead(A0) == LOW)
     {
       kurveRechts = false;
       kurveLinks = false;
-    }else
+     
+    }else //Default-Wert ist eine Rechtskurve 
     {
       kurveLinks = false;
       kurveRechts = true;
     }
-    anfang = false; 
-  }else
+    anfang = false; //Weil dies nur beim ersten Interrupt passieren soll
+  }else //Für alle anderen Fälle (ausgenommen der erste Interrupt)
    {
-     if (analogRead(A2) == LOW || analogRead(A0) == LOW)
+     if (analogRead(A2) == LOW || analogRead(A0) == LOW) //Ende des gesamten Feldes
      {
        kurveRechts = false;
        kurveLinks = false;
-     }else
+     }else //Abwechselndes Kurvenfahren
       {
        kurveRechts = !kurveRechts;
        kurveLinks = !kurveLinks;
@@ -130,7 +134,7 @@ void ISRendeErkennen()
   
 }
 
-
+//Ultraschallsensor
 double entfernungMessen()
 {
   double duration;
